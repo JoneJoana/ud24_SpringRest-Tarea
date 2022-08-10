@@ -55,10 +55,8 @@ public class EmpleadoController {
 		
 		empleado_selec = empleadoServiceImpl.buscEmplXID(id);
 		
-		empleado_selec.setNombre_completo(empleado.getNombre_completo());
 		empleado_selec.setTrabajo(empleado.getTrabajo());
-		empleado_selec.setSalario(empleado.getSalario());
-		empleado_selec.setFechaAlta(empleado.getFechaAlta());
+		empleado_selec.setSalario(empleado.getSalario());		
 		empleado_selec.setFechaBaja(empleado.getFechaBaja());
 		
 		empleado_actualizado = empleadoServiceImpl.guardarEmpleado(empleado_selec);
