@@ -1,5 +1,6 @@
 package com.ud24_SpringRestTarea.dto;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -38,67 +39,22 @@ public class Empleado {
 	private Date fecha_baja;
 	
 	//Constructores
-	
-
 	public Empleado() {	}	
 	
 	/**
-	 * @param id
 	 * @param nombre_completo
 	 * @param trabajo
 	 * @param fechaAlta
 	 * @param fechaBaja;
 	 */
-	public Empleado(int id, String nombre, enumPuestos trabajo, Date fechaAlta, Date fechaBaja) {
-		this.id = id;
+	public Empleado(String nombre, enumPuestos trabajo, Date fechaAlta, Date fechaBaja) {
 		this.nombre_completo = nombre;				
-		this.fecha_alta = fechaAlta;
-		this.fecha_baja = fechaBaja;		
-		if(contains(trabajo.name())) { //no valida no funciona, lo coge todo salario queda null			
-			this.trabajo = trabajo;
-			this.salario = puestoSalario(trabajo);
-		}			 
+		this.fecha_alta = new Date();
+		this.fecha_baja = fechaBaja;							
+		this.trabajo = trabajo;
+		this.salario = trabajo.getSalario();			
 	}
 	
-	private boolean contains(String trabajo) { 
-		for (enumPuestos c : enumPuestos.values()) { 
-			if (c.name().equals(trabajo)) { 
-				return true; 
-			}
-		} 
-		return false; 
-	}
-
-		
-	private int puestoSalario(enumPuestos trabajo) {
-		int salario = 0;		 
-		
-		switch(trabajo.name()) {
-		case "PROGR_JUNIOR":
-			salario = 1000;
-			break;
-		case "PROGR_MIDDLE":
-			salario = 1500;
-			break;
-		case "PROGR_SENIOR" :
-			salario = 1800;
-			break;
-		case "RRHH":
-			salario = 1300;
-		case "TEAMLEAD":
-			salario = 2200;
-			break;
-		case "TECHLEAD":
-			salario = 2100;
-			break;
-		case "PROJECT_MANAGER":
-			salario = 3000;
-		}
-		
-		return salario;
-	}
-	
-		
 	//Getters y Setters
 	public int getId() {
 		return id;
@@ -127,7 +83,7 @@ public class Empleado {
 	public int getSalario() {
 		return salario;
 	}
-
+	
 	public void setSalario(int salario) {
 		this.salario = salario;
 	}

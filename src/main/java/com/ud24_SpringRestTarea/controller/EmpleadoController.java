@@ -1,5 +1,6 @@
 package com.ud24_SpringRestTarea.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,11 @@ public class EmpleadoController {
 	
 	@PostMapping("/empleados")
 	public Empleado guardarEmpleado(@RequestBody Empleado empleado) {
-		return empleadoServiceImpl.guardarEmpleado(empleado);
+		
+		//validar datos que entran por body
+		Empleado empleadoInput = new Empleado(empleado.getNombre_completo(),empleado.getTrabajo(),empleado.getFechaAlta(),empleado.getFechaBaja());				
+		
+		return empleadoServiceImpl.guardarEmpleado(empleadoInput);
 	}
 	
 	@DeleteMapping("/empleados/{id}")
@@ -55,8 +60,7 @@ public class EmpleadoController {
 		
 		empleado_selec = empleadoServiceImpl.buscEmplXID(id);
 		
-		empleado_selec.setTrabajo(empleado.getTrabajo());
-		empleado_selec.setFechaAlta(empleado.getFechaAlta());	
+		empleado_selec.setTrabajo(empleado.getTrabajo());	
 		empleado_selec.setFechaBaja(empleado.getFechaBaja());
 		empleado_selec.setSalario(empleado.getSalario());
 		
