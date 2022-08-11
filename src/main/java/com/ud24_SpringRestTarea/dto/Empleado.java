@@ -17,27 +17,31 @@ public class Empleado {
 
 	//Atributos de entidad cliente
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)//busca ultimo valor e incrementa desde id final de db
+	//busca ultimo valor e incrementa desde id final de db
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@Column(name = "nombre_completo")//no hace falta si se llama igual
 	private String nombre_completo;	
 	
-	@Column(name = "puesto")//no hace falta si se llama igual
+	@Column(name = "trabajo")//no hace falta si se llama igual
 	private enumPuestos trabajo;
 	
 	@Column(name = "salario")//no hace falta si se llama igual
-	private double salario;
+	private int salario;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date fechaAlta;
+	@Column(name = "fecha_alta")
+	private Date fecha_alta;
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date fechaBaja;
+	@Column(name = "fecha_baja")
+	private Date fecha_baja;
 	
 	//Constructores
 	
-	public Empleado() {	}	
 
+	public Empleado() {	}	
+	
 	/**
 	 * @param id
 	 * @param nombre_completo
@@ -47,14 +51,54 @@ public class Empleado {
 	 */
 	public Empleado(int id, String nombre, enumPuestos trabajo, Date fechaAlta, Date fechaBaja) {
 		this.id = id;
-		this.nombre_completo = nombre;
-		this.trabajo = trabajo;
-		this.salario = getSalario();
-		this.fechaAlta = fechaAlta;
-		this.fechaBaja = fechaBaja;
+		this.nombre_completo = nombre;				
+		this.fecha_alta = fechaAlta;
+		this.fecha_baja = fechaBaja;		
+		if(contains(trabajo.name())) { //no valida no funciona, lo coge todo salario queda null			
+			this.trabajo = trabajo;
+			this.salario = puestoSalario(trabajo);
+		}			 
+	}
+	
+	private boolean contains(String trabajo) { 
+		for (enumPuestos c : enumPuestos.values()) { 
+			if (c.name().equals(trabajo)) { 
+				return true; 
+			}
+		} 
+		return false; 
 	}
 
+		
+	private int puestoSalario(enumPuestos trabajo) {
+		int salario = 0;		 
+		
+		switch(trabajo.name()) {
+		case "PROGR_JUNIOR":
+			salario = 1000;
+			break;
+		case "PROGR_MIDDLE":
+			salario = 1500;
+			break;
+		case "PROGR_SENIOR" :
+			salario = 1800;
+			break;
+		case "RRHH":
+			salario = 1300;
+		case "TEAMLEAD":
+			salario = 2200;
+			break;
+		case "TECHLEAD":
+			salario = 2100;
+			break;
+		case "PROJECT_MANAGER":
+			salario = 3000;
+		}
+		
+		return salario;
+	}
 	
+		
 	//Getters y Setters
 	public int getId() {
 		return id;
@@ -80,35 +124,36 @@ public class Empleado {
 		this.trabajo = trabajo;
 	}
 
-	public double getSalario() {
-		return trabajo.getSalario();
+	public int getSalario() {
+		return salario;
 	}
 
-	public void setSalario(double salario) {
+	public void setSalario(int salario) {
 		this.salario = salario;
 	}
 
 	public Date getFechaAlta() {
-		return fechaAlta;
+		return fecha_alta;
 	}
 
 	public void setFechaAlta(Date fechaAlta) {
-		this.fechaAlta = fechaAlta;
+		this.fecha_alta = fechaAlta;
 	}
-
+	
 	public Date getFechaBaja() {
-		return fechaBaja;
+		return fecha_baja;
 	}
-
+	
 	public void setFechaBaja(Date fechaBaja) {
-		this.fechaBaja = fechaBaja;
+		this.fecha_baja = fechaBaja;
 	}
 
+	
 	//Metodo impresion de datos por consola
 	@Override
 	public String toString() {
 		return "Empleado [id=" + id + ", nombre_completo=" + nombre_completo + ", trabajo=" + trabajo + ", salario="
-				+ salario + ", fechaAlta=" + fechaAlta + ", fechaBaja=" + fechaBaja + "]";
+				+ salario + ", fechaAlta=" + fecha_alta + ", fechaBaja="+ fecha_baja + "]";
 	}	
 		
 }
