@@ -1,6 +1,5 @@
 package com.ud24_SpringRestTarea.dto;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
