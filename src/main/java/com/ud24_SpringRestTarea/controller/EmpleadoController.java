@@ -62,6 +62,7 @@ public class EmpleadoController {
 		
 		empleado_selec.setTrabajo(empleado.getTrabajo());	
 		empleado_selec.setFechaBaja(empleado.getFechaBaja());
+		empleado_selec.setSalario(empleado.getSalario());
 		
 		empleado_actualizado = empleadoServiceImpl.guardarEmpleado(empleado_selec);
 		

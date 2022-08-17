@@ -80,7 +80,7 @@ public class Empleado {
 	}
 
 	public int getSalario() {
-		return salario;
+		return trabajo.getSalario();
 	}
 	
 	public void setSalario(int salario) {
