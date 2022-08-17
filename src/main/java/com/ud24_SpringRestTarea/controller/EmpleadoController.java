@@ -40,12 +40,22 @@ public class EmpleadoController {
 	}
 	
 	@PostMapping("/empleados")
-	public Empleado guardarEmpleado(@RequestBody Empleado empleado) {
+	public String guardarEmpleado(@RequestBody Empleado empleado) {		
+		//validar datos que entran por body		
+		boolean exists = false;
 		
-		//validar datos que entran por body
-		Empleado empleadoInput = new Empleado(empleado.getNombre_completo(),empleado.getTrabajo(),empleado.getFechaAlta(),empleado.getFechaBaja());				
+		for (Empleado f : empleadoServiceImpl.listarEmpleados()) {
+			if(f.getNombre_completo().equals(empleado.getNombre_completo())) {
+				exists = true;
+			}
+		}
+		if(!exists) {
+			Empleado empleadoInput = new Empleado(empleado.getNombre_completo(),empleado.getTrabajo(),empleado.getFechaAlta(),empleado.getFechaBaja());
+			empleadoServiceImpl.guardarEmpleado(empleadoInput);
+			return "Empleado "+ empleado.getNombre_completo()+" guardado!";
+		}
+		return "Empleado ya existe";
 		
-		return empleadoServiceImpl.guardarEmpleado(empleadoInput);
 	}
 	
 	@DeleteMapping("/empleados/{id}")
@@ -54,7 +64,7 @@ public class EmpleadoController {
 	}
 	
 	@PutMapping("/empleados/{id}")
-	public Empleado guardarEmpleado(@PathVariable(name="id") int id, @RequestBody Empleado empleado) {
+	public Empleado actualizarEmpleado(@PathVariable(name="id") int id, @RequestBody Empleado empleado) {
 		Empleado empleado_selec = new Empleado();
 		Empleado empleado_actualizado = new Empleado();
 		
