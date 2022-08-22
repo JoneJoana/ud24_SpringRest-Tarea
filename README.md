@@ -1,6 +1,17 @@
-U24_SpringRest
+# U24_SpringRest
 
-Creacion de un proyecto Spring utilizando Maven
+## UD24 T24 - INFO COMMIT :
+```
+Add images postman with results
+55585bad88c5318da5546b08011e27d3a026e981
+del Commit on Aug 11, 2022
+```
+
+## UD25 - T25 --> HACER DEPLOY
+
+- De ese commit en adelante
+
+### Creacion de un proyecto Spring utilizando Maven
 
 EndPoints API
 
